@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Redirecionando…</title>
+  <title>Contato • Psicóloga Laila</title>
   <meta name="robots" content="noindex,nofollow" />
 
   <!-- Google tag (gtag.js) - Google Ads -->
@@ -12,31 +12,144 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
-    // Base tag
     gtag('config', 'AW-17985849198');
 
-    (function () {
-      // WhatsApp com mensagem
-      const whatsappUrl =
-        "https://wa.me/5531991065666?text=Sou%20a%20psic%C3%B3loga%20Laila%20Barros,%20como%20posso%20lhe%20ajudar%3F";
+    // ✅ Conversão ao carregar a página (entrada na página /contato)
+    gtag('event', 'conversion', {
+      'send_to': 'AW-17985849198/4IZrCK_a34IcE060qYBD'
+    });
+  </script>
 
-      // Dispara a conversão e redireciona no callback
-      gtag('event', 'conversion', {
-        'send_to': 'AW-17985849198/4IZrCK_a34IcE060qYBD',
-        'event_callback': function () {
-          window.location.replace(whatsappUrl);
+  <style>
+    *{ box-sizing: border-box; }
+    body{
+      margin: 0;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      background: #ffffff; /* fundo branco puro */
+      color: #111;
+      padding: 24px 16px;
+      font-family: Georgia, "Times New Roman", Times, serif;
+    }
+
+    .wrap{
+      width: min(860px, 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    /* Foto principal: arredondamento perfeito */
+    .photo{
+      width: min(520px, 92vw);
+      aspect-ratio: 4 / 3;
+      border-radius: 42px;
+      overflow: hidden;
+      background: #fff;
+
+      /* força recorte consistente em mais navegadores */
+      clip-path: inset(0 round 42px);
+
+      /* melhora em alguns WebKit */
+      -webkit-mask-image: -webkit-radial-gradient(white, black);
+    }
+
+    /*.photo img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;*/
+      
+      .photo img{
+        transform: scale(0.97);
         }
-      });
+      
 
-      // Fallback: se o callback não rodar, redireciona mesmo assim
-      setTimeout(function () {
-        window.location.replace(whatsappUrl);
-      }, 900);
+      /* aplica o mesmo raio na imagem também */
+      border-radius: 42px;
+    }
+
+    h1{
+      margin: 0;
+      font-size: clamp(34px, 4.2vw, 56px);
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      text-align: center;
+    }
+
+    /* Ícone WhatsApp clicável: sem sombra */
+    .wa{
+      margin-top: 6px;
+      width: 100px;
+      height: 100px;
+      display: grid;
+      place-items: center;
+      text-decoration: none;
+      border-radius: 16px;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .wa img{
+      width: 92px;
+      height: 92px;
+      display: block;
+    }
+    .wa:active img{ transform: translateY(1px); }
+
+    .hint{
+      margin-top: -6px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: 13px;
+      opacity: 0.65;
+      text-align: center;
+      max-width: 520px;
+      line-height: 1.35;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <!-- (1) IMAGEM DO CONSULTÓRIO: coloque consultorio.jpg no repo -->
+    <div class="photo" aria-label="Foto do consultório">
+      <img src="consultorio.jpg" alt="Consultório" />
+    </div>
+
+    <h1>Em que posso lhe ajudar ?</h1>
+
+    <!-- (2) ÍCONE DO WHATSAPP: coloque whatsapp.png no repo -->
+    <a class="wa" id="waLink" href="#" aria-label="Abrir WhatsApp">
+      <img src="whatsapp.png" alt="WhatsApp" />
+    </a>
+
+    <div class="hint">
+      Se não abrir automaticamente, toque novamente e escolha “Abrir no WhatsApp”.
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      const phone = "5531991065666";
+      const text  = "Sou a psicóloga Laila Barros, como posso lhe ajudar?";
+      const enc   = encodeURIComponent(text);
+
+      const appUrl = "whatsapp://send?phone=" + phone + "&text=" + enc;
+      const webUrl = "https://wa.me/" + phone + "?text=" + enc;
+
+      document.getElementById("waLink").addEventListener("click", function (e) {
+        e.preventDefault();
+
+        // (Opcional) Se quiser contar conversão no clique também, descomente:
+        // gtag('event', 'conversion', { 'send_to': 'AW-17985849198/4IZrCK_a34IcE060qYBD' });
+
+        window.location.href = appUrl;
+        setTimeout(function () {
+          window.location.href = webUrl;
+        }, 700);
+      });
     })();
   </script>
-</head>
-<body>
-  Abrindo o WhatsApp…
 </body>
 </html>
