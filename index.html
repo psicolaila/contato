@@ -41,30 +41,22 @@
       gap: 18px;
     }
 
-    /* Foto principal: arredondamento perfeito */
-    .photo{
-      width: min(520px, 92vw);
-      aspect-ratio: 4 / 3;
-      border-radius: 42px;
-      overflow: hidden;
-      background: #fff;
+.photo{
+  width: min(520px, 92vw);
+  /* remova o aspect-ratio para não forçar o recorte */
+  border-radius: 42px;
+  overflow: hidden;
+  background: #fff;
+  clip-path: inset(0 round 42px);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
 
-      /* força recorte consistente em mais navegadores */
-      clip-path: inset(0 round 42px);
-
-      /* melhora em alguns WebKit */
-      -webkit-mask-image: -webkit-radial-gradient(white, black);
-    }
-
-    /*.photo img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;*/
-      
-      .photo img{
-        transform: scale(0.97);
-        }
+.photo img{
+  width: 100%;
+  height: auto;      /* importante */
+  object-fit: contain;
+  display: block;
+}
       
 
       /* aplica o mesmo raio na imagem também */
