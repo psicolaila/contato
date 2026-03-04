@@ -56,12 +56,13 @@
   height: auto;      /* importante */
   object-fit: contain;
   display: block;
+  border-radius: 42px;
 }
       
 
-      /* aplica o mesmo raio na imagem também */
+      /* aplica o mesmo raio na imagem também
       border-radius: 42px;
-    }
+    }*/
 
     h1{
       margin: 0;
@@ -121,28 +122,64 @@
       Clique no ícone para abrir o WhatsApp.
     </div>
   </main>
+<script>
+  (function () {
+    const phone = "5531991065666";
+    const text  = "Olá, gostaria de mais informações sobre a consulta";
+    const enc   = encodeURIComponent(text);
 
-  <script>
-    (function () {
-      const phone = "5531991065666";
-      const text  = "Olá, gostaria de mais informações sobre a consulta";
-      const enc   = encodeURIComponent(text);
+    const appUrl = "whatsapp://send?phone=" + phone + "&text=" + enc;
+    const webUrl = "https://wa.me/" + phone + "?text=" + enc;
 
-      const appUrl = "whatsapp://send?phone=" + phone + "&text=" + enc;
-      const webUrl = "https://wa.me/" + phone + "?text=" + enc;
+    const wa = document.getElementById("waLink");
 
-      document.getElementById("waLink").addEventListener("click", function (e) {
-        e.preventDefault();
+    wa.addEventListener("click", function (e) {
+      e.preventDefault();
 
-        // (Opcional) Se quiser contar conversão no clique também, descomente:
-        // gtag('event', 'conversion', { 'send_to': 'AW-17985849198/4IZrCK_a34IcE060qYBD' });
+      let fallbackTimer = null;
+      let openedApp = false;
 
-        window.location.href = appUrl;
-        setTimeout(function () {
+      function cleanup() {
+        document.removeEventListener("visibilitychange", onVisibilityChange);
+        window.removeEventListener("blur", onBlur);
+        window.removeEventListener("pagehide", onPageHide);
+      }
+
+      function cancelFallback() {
+        openedApp = true;
+        if (fallbackTimer) clearTimeout(fallbackTimer);
+        cleanup();
+      }
+
+      function onVisibilityChange() {
+        if (document.hidden) cancelFallback();
+      }
+
+      function onBlur() {
+        cancelFallback();
+      }
+
+      // Em alguns celulares, pagehide dispara quando sai para outro app
+      function onPageHide() {
+        cancelFallback();
+      }
+
+      document.addEventListener("visibilitychange", onVisibilityChange);
+      window.addEventListener("blur", onBlur);
+      window.addEventListener("pagehide", onPageHide);
+
+      // Tenta abrir o app (gesto do usuário ajuda MUITO)
+      window.location.href = appUrl;
+
+      // Só cai no wa.me se NÃO houve sinal de que o app abriu
+      fallbackTimer = setTimeout(function () {
+        if (!openedApp) {
+          cleanup();
           window.location.href = webUrl;
-        }, 700);
-      });
-    })();
-  </script>
-</body>
+        }
+      }, 1300); // maior que 700ms para dar tempo do app assumir
+    });
+  })();
+</script>
+  </body>
 </html>
