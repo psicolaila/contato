@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Redirecionando…</title>
+  <meta name="robots" content="noindex,nofollow" />
+
+  <!-- Google tag (gtag.js) - Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17985849198"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    // Base tag
+    gtag('config', 'AW-17985849198');
+
+    (function () {
+      // WhatsApp com mensagem
+      const whatsappUrl =
+        "https://wa.me/5531991065666?text=Sou%20a%20psic%C3%B3loga%20Laila%20Barros,%20como%20posso%20lhe%20ajudar%3F";
+
+      // Dispara a conversão e redireciona no callback
+      gtag('event', 'conversion', {
+        'send_to': 'AW-17985849198/4IZrCK_a34IcE060qYBD',
+        'event_callback': function () {
+          window.location.replace(whatsappUrl);
+        }
+      });
+
+      // Fallback: se o callback não rodar, redireciona mesmo assim
+      setTimeout(function () {
+        window.location.replace(whatsappUrl);
+      }, 900);
+    })();
+  </script>
+</head>
+<body>
+  Abrindo o WhatsApp…
+</body>
+</html>
