@@ -128,25 +128,35 @@
     const text  = "Olá, gostaria de mais informações sobre a consulta";
     const enc   = encodeURIComponent(text);
 
+    // Mobile (app + fallback)
     const appUrl = "whatsapp://send?phone=" + phone + "&text=" + enc;
-    const webUrl = "https://wa.me/" + phone + "?text=" + enc;
+    const mobileWebUrl  = "https://wa.me/" + phone + "?text=" + enc;
 
-    const wa = document.getElementById("waLink");
+    // Desktop (web direto) + fallback universal
+    const desktopWebUrl = "https://web.whatsapp.com/send?phone=" + phone + "&text=" + enc;
 
     function isMobile() {
       return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     }
 
+    const wa = document.getElementById("waLink");
+    const desktopFallback = document.getElementById("desktopFallback");
+
+    // Preenche o fallback do desktop (se existir no HTML)
+    if (desktopFallback) {
+      desktopFallback.href = mobileWebUrl; // universal
+    }
+
     wa.addEventListener("click", function (e) {
       e.preventDefault();
 
-      // ✅ Desktop: vai direto para WhatsApp Web (sem tentar whatsapp://)
+      // ✅ DESKTOP: WhatsApp Web direto (sem tela intermediária "Open app")
       if (!isMobile()) {
-        window.location.href = webUrl;
+        window.location.href = desktopWebUrl;
         return;
       }
 
-      // ✅ Mobile: tenta abrir app e só faz fallback se não abrir
+      // ✅ MOBILE: mantém seu comportamento atual (abre app e não troca a aba para wa.me se abriu)
       let fallbackTimer = null;
       let openedApp = false;
 
@@ -162,9 +172,7 @@
         cleanup();
       }
 
-      function onVisibilityChange() {
-        if (document.hidden) cancelFallback();
-      }
+      function onVisibilityChange() { if (document.hidden) cancelFallback(); }
       function onBlur() { cancelFallback(); }
       function onPageHide() { cancelFallback(); }
 
@@ -177,7 +185,7 @@
       fallbackTimer = setTimeout(function () {
         if (!openedApp) {
           cleanup();
-          window.location.href = webUrl;
+          window.location.href = mobileWebUrl;
         }
       }, 1300);
     });
