@@ -119,10 +119,10 @@
 
     <div class="hint">
       <!--Se não abrir automaticamente, toque novamente e escolha “Abrir no WhatsApp”. -->
-      Clique no ícone para abrir o WhatsApp.
+      Clique no ícone para abrir o WhatsApp (5531991025666).
     </div>
   </main>
-<script>
+  <script>
   (function () {
     const phone = "5531991065666";
     const text  = "Olá, gostaria de mais informações sobre a consulta";
@@ -133,9 +133,20 @@
 
     const wa = document.getElementById("waLink");
 
+    function isMobile() {
+      return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+
     wa.addEventListener("click", function (e) {
       e.preventDefault();
 
+      // ✅ Desktop: vai direto para WhatsApp Web (sem tentar whatsapp://)
+      if (!isMobile()) {
+        window.location.href = webUrl;
+        return;
+      }
+
+      // ✅ Mobile: tenta abrir app e só faz fallback se não abrir
       let fallbackTimer = null;
       let openedApp = false;
 
@@ -154,30 +165,21 @@
       function onVisibilityChange() {
         if (document.hidden) cancelFallback();
       }
-
-      function onBlur() {
-        cancelFallback();
-      }
-
-      // Em alguns celulares, pagehide dispara quando sai para outro app
-      function onPageHide() {
-        cancelFallback();
-      }
+      function onBlur() { cancelFallback(); }
+      function onPageHide() { cancelFallback(); }
 
       document.addEventListener("visibilitychange", onVisibilityChange);
       window.addEventListener("blur", onBlur);
       window.addEventListener("pagehide", onPageHide);
 
-      // Tenta abrir o app (gesto do usuário ajuda MUITO)
       window.location.href = appUrl;
 
-      // Só cai no wa.me se NÃO houve sinal de que o app abriu
       fallbackTimer = setTimeout(function () {
         if (!openedApp) {
           cleanup();
           window.location.href = webUrl;
         }
-      }, 1300); // maior que 700ms para dar tempo do app assumir
+      }, 1300);
     });
   })();
 </script>
