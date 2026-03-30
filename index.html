@@ -14,177 +14,316 @@
     gtag('js', new Date());
     gtag('config', 'AW-17985849198');
 
-    // ✅ Conversão ao carregar a página (entrada na página /contato)
+    // Conversão ao carregar a página (entrada na página /contato)
     gtag('event', 'conversion', {
       'send_to': 'AW-17985849198/4IZrCK_a34IcEO6OqYBD'
     });
   </script>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Libre+Baskerville:wght@400&display=swap" rel="stylesheet">
+
   <style>
-    *{ box-sizing: border-box; }
-    body{
-      margin: 0;
-      min-height: 100svh;
-      display: grid;
-      place-items: center;
-      background: #ffffff; /* fundo branco puro */
-      color: #111;
-      padding: 24px 16px;
-      font-family: Georgia, "Times New Roman", Times, serif;
+    :root {
+      --text: #2e2730;
+      --soft-text: #433845;
+      --button-shadow: 0 10px 28px rgba(80, 56, 34, 0.10);
+      --max-width: 1180px;
+      --mobile-side: 16px;
+      --desktop-side: 44px;
     }
 
-    .wrap{
-      width: min(860px, 100%);
+    * { box-sizing: border-box; }
+
+    html, body {
+      min-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background-color: #f8f1f1;
+      background-image: url('back.png');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      font-synthesis-weight: none;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .page {
+      min-height: 100svh;
+      width: 100%;
+      padding: 14px var(--mobile-side) 22px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 18px;
     }
 
-.photo{
-  width: min(520px, 92vw);
-  /* remova o aspect-ratio para não forçar o recorte */
-  border-radius: 42px;
-  overflow: hidden;
-  background: #fff;
-  clip-path: inset(0 round 42px);
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
-}
-
-.photo img{
-  width: 100%;
-  height: auto;      /* importante */
-  object-fit: contain;
-  display: block;
-  border-radius: 42px;
-}
-
-    h1{
-      margin: 0;
-      font-size: clamp(34px, 4.2vw, 56px);
-      font-weight: 500;
-      letter-spacing: 0.2px;
-      text-align: center;
+    .topbar {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
     }
 
-    /* Ícone WhatsApp clicável: sem sombra */
-    .wa{
-      margin-top: 6px;
-      width: 100px;
-      height: 100px;
-      display: grid;
-      place-items: center;
+    .home-link {
+      font-family: "Libre Baskerville", serif;
+      font-size: 12px;
+      line-height: 1.2;
+      color: var(--text);
       text-decoration: none;
-      border-radius: 16px;
-      outline: none;
-      -webkit-tap-highlight-color: transparent;
     }
-    .wa img{
-      width: 92px;
-      height: 92px;
-      display: block;
-    }
-    .wa:active img{ transform: translateY(1px); }
 
-    .hint{
-      margin-top: -6px;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      font-size: 13px;
-      opacity: 0.65;
+    .home-link:hover {
+      text-decoration: underline;
+    }
+
+    .content {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 8px auto 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .title {
+      margin: 8px 0 0;
       text-align: center;
-      max-width: 520px;
-      line-height: 1.35;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 32px;
+      line-height: 1;
+      font-weight: 700;
+      color: #1f171f;
+    }
+
+    .photo {
+      width: 100%;
+      max-width: 100%;
+      justify-self: center;
+      overflow: hidden;
+      border-radius: 42px;
+    }
+
+    .photo img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 42px;
+    }
+
+    .text-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+      padding-bottom: 8px;
+    }
+
+    .line-1,
+    .line-2 {
+      margin: 0;
+      color: #241b24;
+      letter-spacing: 0;
+    }
+
+    .line-1 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 28px;
+      line-height: 1.08;
+      font-weight: 400;
+    }
+
+    .line-2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 28px;
+      line-height: 1.08;
+      font-weight: 600;
+    }
+
+    .wa-button {
+      margin-top: 2px;
+      display: inline-block;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+      filter: drop-shadow(0 8px 22px rgba(132, 102, 72, 0.14));
+    }
+
+    .wa-button img {
+      display: block;
+      width: min(100%, 288px);
+      height: auto;
+    }
+
+    .desktop-layout {
+      display: contents;
+    }
+
+    @media (max-width: 767px) {
+      .title {
+        margin-top: 10px;
+        margin-bottom: 8px;
+      }
+
+      .photo {
+        margin-top: 2px;
+      }
+
+      .text-block {
+        padding: 0 8px;
+      }
+
+      .wa-button img {
+        width: min(100%, 286px);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .page {
+        padding: 18px var(--desktop-side) 28px;
+      }
+
+      .topbar {
+        padding-top: 4px;
+      }
+
+      .content {
+        grid-template-columns: minmax(320px, 520px) minmax(280px, 1fr);
+        grid-template-areas:
+          "title title"
+          "photo text";
+        column-gap: clamp(36px, 6vw, 92px);
+        row-gap: 34px;
+        align-items: center;
+        margin-top: 22px;
+      }
+
+      .title {
+        grid-area: title;
+        margin: 0;
+      }
+
+      .photo {
+        grid-area: photo;
+        align-self: center;
+      }
+
+      .text-block {
+        grid-area: text;
+        align-self: center;
+        max-width: 460px;
+      }
+
+      .line-1,
+      .line-2 {
+        font-size: 28px;
+      }
+
+      .wa-button {
+        margin-top: 14px;
+      }
+
+      .wa-button img {
+        width: 304px;
+      }
+    }
+
+    @media (min-width: 1100px) {
+      .content {
+        grid-template-columns: 430px 1fr;
+        column-gap: 58px;
+      }
+
+      .line-1,
+      .line-2 {
+        font-size: 29px;
+      }
     }
   </style>
 </head>
-
 <body>
-  <main class="wrap">
-    <!-- (1) IMAGEM DO CONSULTÓRIO: coloque consultorio.jpg no repo -->
-    <div class="photo" aria-label="Foto do consultório">
-      <img src="consultorio.jpg" alt="Consultório" />
-    </div>
+  <div class="page">
+    <header class="topbar">
+      <a class="home-link" href="https://psicolaila.com">Inicio</a>
+    </header>
 
-    <h1>Sou a psicóloga <a href="https://psicolaila.com">Laila Barros</a>.<br>Como posso lhe ajudar ?</h1>
+    <main class="content">
+      <h1 class="title">Contato</h1>
 
-    <!-- (2) ÍCONE DO WHATSAPP: coloque whatsapp.png no repo -->
-    <a class="wa" id="waLink" href="#" aria-label="Abrir WhatsApp">
-      <img src="whatsapp.png" alt="WhatsApp" />
-    </a>
+      <div class="photo" aria-label="Foto do consultório">
+        <img src="consultorio.jpg" alt="Consultório" />
+      </div>
 
-    <div class="hint">
-      <!--Se não abrir automaticamente, toque novamente e escolha “Abrir no WhatsApp”. -->
-      Clique no ícone para abrir o WhatsApp.
-    </div>
-  </main>
+      <section class="text-block" aria-label="Texto principal de contato">
+        <p class="line-1">Sou a psicóloga Laila</p>
+        <p class="line-2">Como posso lhe ajudar?</p>
+
+        <a class="wa-button" id="waLink" href="#" aria-label="Abrir WhatsApp">
+          <img src="chamar.png" alt="Chamar no WhatsApp" />
+        </a>
+      </section>
+    </main>
+  </div>
+
   <script>
-  (function () {
-    const phone = "5531991065666";
-    const text  = "Olá, gostaria de mais informações sobre a consulta";
-    const enc   = encodeURIComponent(text);
+    (function () {
+      const phone = "5531991065666";
+      const text  = "Olá, gostaria de mais informações sobre a consulta";
+      const enc   = encodeURIComponent(text);
 
-    // Mobile (app + fallback)
-    const appUrl = "whatsapp://send?phone=" + phone + "&text=" + enc;
-    const mobileWebUrl  = "https://wa.me/" + phone + "?text=" + enc;
+      const appUrl = "whatsapp://send?phone=" + phone + "&text=" + enc;
+      const mobileWebUrl = "https://wa.me/" + phone + "?text=" + enc;
+      const desktopWebUrl = "https://web.whatsapp.com/send?phone=" + phone + "&text=" + enc;
 
-    // Desktop (web direto) + fallback universal
-    const desktopWebUrl = "https://web.whatsapp.com/send?phone=" + phone + "&text=" + enc;
-
-    function isMobile() {
-      return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    }
-
-    const wa = document.getElementById("waLink");
-    const desktopFallback = document.getElementById("desktopFallback");
-
-    // Preenche o fallback do desktop (se existir no HTML)
-    if (desktopFallback) {
-      desktopFallback.href = mobileWebUrl; // universal
-    }
-
-    wa.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      // ✅ DESKTOP: WhatsApp Web direto (sem tela intermediária "Open app")
-      if (!isMobile()) {
-        window.location.href = desktopWebUrl;
-        return;
+      function isMobile() {
+        return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
       }
 
-      // ✅ MOBILE: mantém seu comportamento atual (abre app e não troca a aba para wa.me se abriu)
-      let fallbackTimer = null;
-      let openedApp = false;
+      const wa = document.getElementById("waLink");
 
-      function cleanup() {
-        document.removeEventListener("visibilitychange", onVisibilityChange);
-        window.removeEventListener("blur", onBlur);
-        window.removeEventListener("pagehide", onPageHide);
-      }
+      wa.addEventListener("click", function (e) {
+        e.preventDefault();
 
-      function cancelFallback() {
-        openedApp = true;
-        if (fallbackTimer) clearTimeout(fallbackTimer);
-        cleanup();
-      }
-
-      function onVisibilityChange() { if (document.hidden) cancelFallback(); }
-      function onBlur() { cancelFallback(); }
-      function onPageHide() { cancelFallback(); }
-
-      document.addEventListener("visibilitychange", onVisibilityChange);
-      window.addEventListener("blur", onBlur);
-      window.addEventListener("pagehide", onPageHide);
-
-      window.location.href = appUrl;
-
-      fallbackTimer = setTimeout(function () {
-        if (!openedApp) {
-          cleanup();
-          window.location.href = mobileWebUrl;
+        if (!isMobile()) {
+          window.location.href = desktopWebUrl;
+          return;
         }
-      }, 1300);
-    });
-  })();
-</script>
-  </body>
+
+        let fallbackTimer = null;
+        let openedApp = false;
+
+        function cleanup() {
+          document.removeEventListener("visibilitychange", onVisibilityChange);
+          window.removeEventListener("blur", onBlur);
+          window.removeEventListener("pagehide", onPageHide);
+        }
+
+        function cancelFallback() {
+          openedApp = true;
+          if (fallbackTimer) clearTimeout(fallbackTimer);
+          cleanup();
+        }
+
+        function onVisibilityChange() { if (document.hidden) cancelFallback(); }
+        function onBlur() { cancelFallback(); }
+        function onPageHide() { cancelFallback(); }
+
+        document.addEventListener("visibilitychange", onVisibilityChange);
+        window.addEventListener("blur", onBlur);
+        window.addEventListener("pagehide", onPageHide);
+
+        window.location.href = appUrl;
+
+        fallbackTimer = setTimeout(function () {
+          if (!openedApp) {
+            cleanup();
+            window.location.href = mobileWebUrl;
+          }
+        }, 1300);
+      });
+    })();
+  </script>
+</body>
 </html>
